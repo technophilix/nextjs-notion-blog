@@ -4,6 +4,17 @@ import bookmarkPlugin from "@notion-render/bookmark-plugin";
 import { NotionRenderer } from "@notion-render/client";
 import {getPageBySlug, getPageContent, notionClient} from "@/notion";
 import {notFound} from "next/navigation";
+export async function generateMetadata({ params}) {
+    // read route params
+    const post = await getPageBySlug(params.slug);
+    const content = await getPageContent(post.id);
+    // fetch data
+    return {
+        title: post.properties.title.title[0].plain_text,
+        description: post.properties.abstruct?.rich_text[0]?.plain_text,
+
+    }
+}
 const Page = async ({params}) => {
     const post = await getPageBySlug(params.slug);
     if (!post) notFound();
@@ -17,6 +28,8 @@ const Page = async ({params}) => {
     await notionRenderer.use(hljsPlugin({}));
     await notionRenderer.use(bookmarkPlugin(undefined));
     const html = await notionRenderer.render(...content);
+
+
 
     // console.log("Post: ", html);
     return (

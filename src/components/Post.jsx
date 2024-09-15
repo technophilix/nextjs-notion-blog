@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from "next/link";
+import {formatDate} from "@/app/Util";
 
 const Post = ({title, coverimage, slug, publish_date, category, tags}) => {
     return (
@@ -12,7 +13,7 @@ const Post = ({title, coverimage, slug, publish_date, category, tags}) => {
                             <img className="img-fluid2" src={coverimage} alt={title} />
                         </div>
                         <div className="ms-2 c-details">
-                            <h6 className="mb-0">{title}</h6> <span>{publish_date}</span>
+                            <h6 className="mb-0">{title}</h6> <span>{formatDate(publish_date)}</span>
                         </div>
                     </div>
                     <div className="badge badge-pill badge-danger">
@@ -28,8 +29,7 @@ const Post = ({title, coverimage, slug, publish_date, category, tags}) => {
                 </div>
 
                 <div className="mt-5 d-flex flex-row-reverse">
-                    <Link className={'btn btn-sm btn-dark'} href={`/article/${slug}`}>Read more →</Link>
-
+                    <Link className={'btn btn-sm btn-dark'} href={`/article/${slug}`}>পুরোটা →</Link>
                 </div>
             </div>
         </div>

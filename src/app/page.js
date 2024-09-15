@@ -20,39 +20,40 @@ export default async function Home() {
 
 
         <>
-<div className="row">
 
-    <Latest />
+            <div className="row">
+                <div className="col-sm-9">
+                    <div className="row">
+
+                        <Latest post={posts[0]}/>
 
 
+                    </div>
+                    <div className="row">
+                        {posts.map((post, index) =>
 
-</div>
-        <div className="row">
-            <div className="col-sm-9">
-                <div className="row">
-                    {posts.map((post, index) =>
-
-                        (
-                            <>
-                                {index !== 0 ? <Post title={post.title} coverimage={post.coverimage} slug={post.posturl}
-                                                     publish_date={post.publish_date} category={post.category}
-                                                     key={index}/> : ''
-                                }
-                            </>
+                            (
+                                <>
+                                    {index !== 0 ?
+                                        <Post title={post.title} coverimage={post.coverimage} slug={post.posturl}
+                                              publish_date={post.publish_date} category={post.category}
+                                              key={index}/> : ''
+                                    }
+                                </>
+                            )
                         )
-                    )
-                    }
+                        }
+                    </div>
                 </div>
+                <div className="col-sm-3">
+
+                    <Category/>
+
+
+                </div>
+
+
             </div>
-            <div className="col-sm-3">
-
-                <Category/>
-
-
-            </div>
-
-
-        </div>
-</>
+        </>
     );
 }
