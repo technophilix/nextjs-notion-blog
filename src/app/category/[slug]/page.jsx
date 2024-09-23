@@ -6,6 +6,8 @@ import Post from "@/components/Post";
 const Page = async ({params}) => {
     const posts = await getCategoryPost(params.slug);
     if (!posts) notFound();
+
+    // console.log(posts)
     return (
         <div className={'container mt-5'}>
             <div className="row">
@@ -17,7 +19,7 @@ const Page = async ({params}) => {
 
                     (
                         <>
-                            {index !== 0 ? <Post title={post.title} coverimage={post.coverimage} slug={post.posturl}
+                            {index !== -1 ? <Post title={post.title} coverimage={post.coverimage} slug={post.posturl}
                                                  publish_date={post.publish_date} category={post.category}
                                                  key={index}/> : ''
                             }

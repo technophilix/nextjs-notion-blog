@@ -35,10 +35,10 @@ export const getPages = cache( async () => {
             {
                title: post.properties.title.title[0].plain_text,
                abstruct: post.properties.abstruct?.rich_text[0]?.plain_text,
-               coverimage:post.properties.coverimage.files[0].file.url,
-               posturl: post.properties.posturl.rich_text[0].text.content,
-               publish_date: post.properties.publish_date.date.start,
-               category: post.properties.category.select.name,
+               coverimage:post.properties.coverimage?.files[0]?.file.url,
+               posturl: post.properties.posturl?.rich_text[0]?.text.content,
+               publish_date: post.properties.publish_date?.date?.start,
+               category: post.properties.category?.select?.name,
 
             });
 
@@ -95,10 +95,10 @@ export const getCategoryPost = cache( async (slug) => {
             {
                 title: post.properties.title.title[0].plain_text,
                 abstruct: post.properties.abstruct?.rich_text[0]?.plain_text,
-                coverimage:post.properties.coverimage.files[0].file.url,
-                posturl: post.properties.posturl.rich_text[0].text.content,
-                publish_date: post.properties.publish_date.date.start,
-                category: post.properties.category.select.name,
+                coverimage:post.properties.coverimage?.files[0]?.file.url,
+                posturl: post.properties.posturl?.rich_text[0]?.text.content,
+                publish_date: post.properties.publish_date?.date?.start,
+                category: post.properties.category?.select?.name,
 
             });
 

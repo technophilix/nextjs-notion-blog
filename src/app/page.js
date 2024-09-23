@@ -46,6 +46,7 @@ export default async function Home() {
                     </div>
                 </div>
                 <div className="col-sm-3">
+                    <p className={'text-justify text-brown'}>সব মানুষের জীবনেই নানা গল্প থাকে। আমারও আছে। গল্প ভাগ করে নিতে কারো কারো ভালো লাগে... কারো কাছে একেবারেই তা নিজস্ব, আত্মস্থিত । আমারটা মাঝামাঝি। যা দেখি-যা শুনি, তার উপর দাঁড়িয়ে মিলিয়ে নেওয়া আরকি!!</p>
 
                     <Category/>
 

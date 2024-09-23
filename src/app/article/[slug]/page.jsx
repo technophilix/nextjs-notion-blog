@@ -4,6 +4,8 @@ import bookmarkPlugin from "@notion-render/bookmark-plugin";
 import { NotionRenderer } from "@notion-render/client";
 import {getPageBySlug, getPageContent, notionClient} from "@/notion";
 import {notFound} from "next/navigation";
+import Share from "@/components/Share";
+import {headers} from "next/headers";
 export async function generateMetadata({ params}) {
     // read route params
     const post = await getPageBySlug(params.slug);
@@ -16,6 +18,13 @@ export async function generateMetadata({ params}) {
     }
 }
 const Page = async ({params}) => {
+
+    const headersList = headers();
+
+    var domainname = headersList.get('host'); // to get domain
+
+
+
     const post = await getPageBySlug(params.slug);
     if (!post) notFound();
 
@@ -25,16 +34,45 @@ const Page = async ({params}) => {
         client: notionClient,
     });
 
+    // console.log(content)
+
     await notionRenderer.use(hljsPlugin({}));
     await notionRenderer.use(bookmarkPlugin(undefined));
     const html = await notionRenderer.render(...content);
 
+    const customStyles = `
+        .notion-quote {
+            border-left: 4px solid #e1e1e1;
+            padding-left: 16px;
+            margin: 16px 0;
+            font-style: italic;
+            color: #555;
+        }
+        
+        .notion-code {
+      background-color: #f4f4f4;
+      border-radius: 4px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+    }
+    .notion-equation {
+      display: flex;
+      justify-content: center;
+      margin: 16px 0;
+    }
+        .text-justify{
+        text-align: justify;
+    `;
 
-
-    // console.log("Post: ", html);
+   console.log("url ", `${domainname}/article/${params.slug}`);
     return (
-<>
- <h2 className={'text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-4xl dark:text-white'}>{post.properties.title.title[0].plain_text}</h2>
+        <>
+            <style dangerouslySetInnerHTML={{__html: customStyles}}/>
+            <h2 className={'fw-bold'}>{post.properties.title.title[0].plain_text}</h2>
+            <Share data={{
+                url: `${domainname}/article/${params.slug}`,
+
+            }} />
             <div
                 className="text-justify mt-4"
                 dangerouslySetInnerHTML={{__html: html}}
@@ -42,7 +80,7 @@ const Page = async ({params}) => {
 
             </div>
 
-</>
+        </>
     );
 };
 
